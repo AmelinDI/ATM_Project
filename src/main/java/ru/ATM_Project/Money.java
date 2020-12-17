@@ -6,9 +6,9 @@ import lombok.Getter;
 
 public class Money extends BigDecimal {
     @Getter
-    private final String moneyCurrency;
+    CurrencyCode moneyCurrency;
 
-    public Money(Double val, String moneyCurrency) {
+    public Money(Double val, CurrencyCode moneyCurrency) {
         super(val);
         this.moneyCurrency = moneyCurrency;
     }

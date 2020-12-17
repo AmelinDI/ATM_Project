@@ -3,19 +3,17 @@ package ru.ATM_Project;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
+@Getter
 public class CardInfo {
-    @Getter
     private final String cardNumber;
-    @Getter
-    private final GregorianCalendar expDate;
-    @Getter
+    private final LocalDate expDate;
     private final int cardPIN;
-    @Getter@Setter
+    @Setter
     private Money balans;
 
-    public CardInfo(String cardNumber, GregorianCalendar expDate, int cardPIN, Money balans) {
+    public CardInfo(String cardNumber, LocalDate expDate, int cardPIN, Money balans) {
         this.cardNumber = cardNumber;
         this.expDate = expDate;
         this.cardPIN = cardPIN;
