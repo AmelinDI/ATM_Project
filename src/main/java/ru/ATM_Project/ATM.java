@@ -1,7 +1,10 @@
 package ru.ATM_Project;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -12,9 +15,9 @@ public class ATM {
 
     public ATM() {
         // Заполняем базу из объектов CardInfo(cardNumber, Calendar, cardPIN, Money):
-        cardList.add(new CardInfo("1234567812345601",  LocalDate.of(2022, 1, 1), 1111, new Money(100d, CurrencyCode.RUR)));
-        cardList.add(new CardInfo("1234567812345602",  LocalDate.of(2021, 6, 1), 2222, new Money(200d, CurrencyCode.EUR)));
-        cardList.add(new CardInfo("1234567812345603",  LocalDate.of(2021, 10, 1), 3333, new Money(300d, CurrencyCode.USD)));
+        cardList.add(new CardInfo("1234567812345601",  LocalDate.of(2022, 1, 1), 1111, new Money(new BigDecimal(100), CurrencyCode.RUR)));
+        cardList.add(new CardInfo("1234567812345602",  LocalDate.of(2021, 6, 1), 2222, new Money(new BigDecimal(200), CurrencyCode.EUR)));
+        cardList.add(new CardInfo("1234567812345603",  LocalDate.of(2021, 10, 1), 3333, new Money(new BigDecimal(300), CurrencyCode.USD)));
     }
 
     public Money getCardBalance(String txtCard, String txtExpDate, int cardPIN){
@@ -23,10 +26,10 @@ public class ATM {
         int month = 1;
 
         // Проверяем на повтор использования карты и логируем, если повтор
-        FuncInterface isRepeatUsage = cardUsage::contains;
-        if (isRepeatUsage.testCard(txtCard)) {
+
+        Predicate<String> isRepeatUsage = cardUsage::contains;
+        if (isRepeatUsage.test(txtCard)) {
             log.info(txtCard);
-            System.out.println(txtCard);
         }
         cardUsage.add(txtCard);
 
@@ -44,7 +47,7 @@ public class ATM {
                 .filter(c -> (c.getCardNumber().equals(txtCard) && c.getExpDate().equals(expDate) && c.getCardPIN() == cardPIN))
                 .findFirst()
                 .map(CardInfo::getBalans)
-                .orElse(new Money(0d, CurrencyCode.WRONG_PIN));
+                .orElse(new Money(new BigDecimal(-1), CurrencyCode.NO_VALUE));
     }
 
 }
