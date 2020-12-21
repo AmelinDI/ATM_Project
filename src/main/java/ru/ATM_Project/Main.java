@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 public class Main {
     public static void main(String[] args) {
         ATM sberATM = new ATM();
+        TestClass myTestClass = new TestClass();
+
+        myTestClass.printString("Test String");
 
         Money cardBalance = sberATM.getCardBalance("1234567812345602","06/21", 2222);
         System.out.println(cardBalance.getAmount() + " " + cardBalance.getMoneyCurrency());
