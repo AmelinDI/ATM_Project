@@ -1,8 +1,6 @@
 package ru.ATM_Project;
 
 
-import java.math.BigDecimal;
-
 public class Main {
     public static void main(String[] args) {
         ATM sberATM = new ATM();
@@ -12,6 +10,8 @@ public class Main {
 
         cardBalance = sberATM.getCardBalance("1234567812345603","10/21", 3333);
         System.out.println(cardBalance.getAmount() + " " + cardBalance.getMoneyCurrency());
+
+        TestPrintLN.printToConsole();
     }
 
 }
