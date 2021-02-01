@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+
+<main>
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Проект ATM_Project</h1>
+        <p class="lead text-muted">Spring boot приложение, реализующее работу c базой данных</p>
+    </div>
+</main>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>
