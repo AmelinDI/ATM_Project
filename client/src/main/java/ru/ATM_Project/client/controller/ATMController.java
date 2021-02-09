@@ -2,14 +2,16 @@ package ru.ATM_Project.client.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import ru.ATM_Project.client.entity.CreditCard;
 import ru.ATM_Project.client.entity.PhoneAccount;
+import ru.ATM_Project.client.messages.Request;
+import ru.ATM_Project.client.messages.Response;
 import ru.ATM_Project.client.repository.CreditCardRepository;
 import ru.ATM_Project.client.repository.PhoneAccountRepository;
 
@@ -19,11 +21,23 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
+@RestController
 @AllArgsConstructor
 public class ATMController {
 
     private final PhoneAccountRepository phoneAccountRepository;
     private final CreditCardRepository creditCardRepository;
+
+    @GetMapping("/test_rest")
+    public String testREST() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<Request> request = new HttpEntity<>(new Request(1, "{\"clientId\":1,\"accountId\":0,\"pin\":123}"));
+
+        ResponseEntity<Response> response = restTemplate.postForEntity("http://127.0.0.1:9090/test_responce", request, Response.class);
+
+        return response.toString();
+    }
 
     @GetMapping("/")
     public String home(Model model) {
