@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление телефона</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>Добавление телефона</h1>
+    <form action="/phone/add" method="post">
+        <input class="form-control" name="phoneNumber" placeholder="Введите номер телефона" type="number"></br>
+        <input class="form-control" name="balance" placeholder="Введите баланс" type="number"></br>
+        <button class="btn btn-success" type="submit">Добавть телефон</button>
+    </form>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+
+</body>
+</html>
