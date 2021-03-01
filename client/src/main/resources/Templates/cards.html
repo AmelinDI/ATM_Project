@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Все карты</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
@@ -11,12 +11,12 @@
 
 <div class="container mt-5">
     <h1>Детализация по картам</h1>
+    </br>
     <div class="allert allert-info mt2" th:each="el : ${creditCards}">
-        <h3 th:text="${el.cardNumber}"/>
-        <p th:text="${el.expDate}"/>
-        <p th:text="${el.cardPIN}"/>
-        <p th:text="${el.balance}"/>
-        <!--        <a th:href="'/card/'+${el.id}">Детали</a>-->
+        <h3>Карта: <span th:text="${el.cardNumber}"/></h3>
+        <p>Exp Date: <span th:text="${el.expDate}"/></p>
+        <p>PID CODE: <span th:text="${el.cardPIN}"/></p>
+        <p>Баланс: <span th:text="${el.balance}"/></p>
     </div>
 </div>
 

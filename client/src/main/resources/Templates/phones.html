@@ -12,8 +12,8 @@
 <div class="container mt-5">
     <h1>Все телефоны</h1>
     <div class="allert allert-info mt2" th:each="el : ${phoneAccounts}">
-        <h3 th:text="${el.phoneNumber}"/>
-        <p th:text="${el.balance}"/>
+        <h3>Телефон: <span th:text="${el.phoneNumber}"/></h3>
+        <p>Баланс: <span th:text="${el.balance}"/></p>
         <a class="btn btn-warning" th:href="'/phone/'+${el.id}">Детали</a>
     </div>
 </div>

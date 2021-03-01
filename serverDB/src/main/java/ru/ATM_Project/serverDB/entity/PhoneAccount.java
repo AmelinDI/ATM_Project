@@ -1,4 +1,4 @@
-package ru.ATM_Project.client.entity;
+package ru.ATM_Project.serverDB.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,8 @@
-package ru.ATM_Project.client.repository;
+package ru.ATM_Project.serverDB.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.ATM_Project.client.entity.CreditCard;
+import ru.ATM_Project.serverDB.entity.CreditCard;
 
 
 @Repository
