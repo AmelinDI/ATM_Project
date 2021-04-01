@@ -3,6 +3,8 @@ package ru.ATM_Project.client.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,6 @@ import ru.ATM_Project.serverDB.entity.CreditCard;
 import ru.ATM_Project.serverDB.entity.PhoneAccount;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 @Slf4j
 @Controller
@@ -62,10 +63,8 @@ public class ATMController {
         if (phoneAccount == null) {
             return "redirect:/phones";
         }
-        ArrayList<PhoneAccount> phoneAccounts = new ArrayList<>();
-        phoneAccounts.add(phoneAccount);
 
-        model.addAttribute("phoneAccounts", phoneAccounts);
+        model.addAttribute("phoneAccount", phoneAccount);
         return "phone-details";
     }
 
@@ -85,10 +84,8 @@ public class ATMController {
         if (phoneAccount == null) {
             return "redirect:/phones";
         }
-        ArrayList<PhoneAccount> phoneAccounts = new ArrayList<>();
-        phoneAccounts.add(phoneAccount);
 
-        model.addAttribute("phoneAccounts", phoneAccounts);
+        model.addAttribute("phoneAccount", phoneAccount);
         return "phone-edit";
     }
 
@@ -103,6 +100,36 @@ public class ATMController {
         return "redirect:/phones";
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/phone/{id}/topup")
+    public String topUpPhone(@PathVariable("id") Long id, Model model) {
+        RestTemplate restTemplate = new RestTemplate();
+        PhoneAccount phoneAccount = restTemplate.getForObject("http://127.0.0.1:8081/phone/" + id, PhoneAccount.class);
+        CreditCard[] creditCards = restTemplate.getForObject("http://127.0.0.1:8081/cards_db", CreditCard[].class);
+
+        if (phoneAccount == null) {
+            return "redirect:/phones";
+        }
+        model.addAttribute("phoneAccount", phoneAccount);
+        model.addAttribute("creditCards", creditCards);
+        return "phone-topup";
+    }
+
+
+    @PostMapping("/phone/{id}/topup")
+    public String topUpPhone(@PathVariable("id") Long phoneId, @RequestParam("cardID") Long cardID, @RequestParam("amount") BigDecimal amount) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
+        parametersMap.add("phoneID", phoneId.toString());
+        parametersMap.add("cardID", cardID.toString());
+        parametersMap.add("amount", amount.toString());
+        restTemplate.postForObject("http://127.0.0.1:8081/phone/topup", parametersMap, void.class);
+
+        return "redirect:/phones";
+    }
+
+
     @GetMapping("/cards")
     public String cards(Model model) {
         RestTemplate restTemplate = new RestTemplate();
@@ -112,4 +139,5 @@ public class ATMController {
         model.addAttribute("creditCards", creditCards);
         return "cards";
     }
+
 }

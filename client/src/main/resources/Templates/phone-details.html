@@ -11,12 +11,12 @@
 
 <div class="container mt-5">
     <h1>Детализация по телефону</h1>
-    <div class="allert allert-info mt2" th:each="el : ${phoneAccounts}">
-        <h3 th:text="${el.phoneNumber}"/>
-        <p><b>Остаток на счете</b> <span th:text="${el.balance}"/></p>
-        <a class="btn btn-warning" th:href="'/phone/'+${el.id}+'/edit'">Редактировать</a>
+    <div class="allert allert-info mt2">
+        <h3 th:text="${phoneAccount.phoneNumber}"/>
+        <p><b>Остаток на счете</b> <span th:text="${phoneAccount.balance}"/></p>
+        <a class="btn btn-warning" th:href="'/phone/'+${phoneAccount.id}+'/edit'">Редактировать</a>
         </br></br>
-        <form method="post" th:action="'/phone/'+${el.id}+'/delete'">
+        <form method="post" th:action="'/phone/'+${phoneAccount.id}+'/delete'">
             <button class="btn btn-warning" type="submit">Удалить</button>
         </form>
     </div>
