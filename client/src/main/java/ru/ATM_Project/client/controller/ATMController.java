@@ -27,7 +27,7 @@ public class ATMController {
 
     @GetMapping("/about")
     public String about(Model model) {
-        model.addAttribute("title", "страница About");
+        model.addAttribute("title", "О проекте ATM_project");
         return "about";
     }
 
@@ -47,7 +47,9 @@ public class ATMController {
 
     @PostMapping("/phone/add")
     public String phonePostAdd(@RequestParam Long phoneNumber, @RequestParam BigDecimal balance) {
-        PhoneAccount phoneAccount = new PhoneAccount(phoneNumber, balance);
+        PhoneAccount phoneAccount = new PhoneAccount();
+        phoneAccount.setPhoneNumber(phoneNumber);
+        phoneAccount.setBalance(balance);
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject("http://127.0.0.1:8081/phone/add_db", phoneAccount, void.class);
@@ -91,7 +93,9 @@ public class ATMController {
 
     @PostMapping("/phone/{id}/edit")
     public String phonePostUpdate(@PathVariable("id") Long id, @RequestParam Long phoneNumber, @RequestParam BigDecimal balance) {
-        PhoneAccount phoneAccount = new PhoneAccount(phoneNumber, balance);
+        PhoneAccount phoneAccount = new PhoneAccount();
+        phoneAccount.setPhoneNumber(phoneNumber);
+        phoneAccount.setBalance(balance);
         phoneAccount.setId(id);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -100,7 +104,6 @@ public class ATMController {
         return "redirect:/phones";
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/phone/{id}/topup")
     public String topUpPhone(@PathVariable("id") Long id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
@@ -115,7 +118,6 @@ public class ATMController {
         return "phone-topup";
     }
 
-
     @PostMapping("/phone/{id}/topup")
     public String topUpPhone(@PathVariable("id") Long phoneId, @RequestParam("cardID") Long cardID, @RequestParam("amount") BigDecimal amount) {
         RestTemplate restTemplate = new RestTemplate();
@@ -124,11 +126,11 @@ public class ATMController {
         parametersMap.add("phoneID", phoneId.toString());
         parametersMap.add("cardID", cardID.toString());
         parametersMap.add("amount", amount.toString());
-        restTemplate.postForObject("http://127.0.0.1:8081/phone/topup", parametersMap, void.class);
+        Boolean result = restTemplate.postForObject("http://127.0.0.1:8081/phone/topup", parametersMap, Boolean.class);
+        log.debug("Phone top up was done: " + result);
 
         return "redirect:/phones";
     }
-
 
     @GetMapping("/cards")
     public String cards(Model model) {

@@ -16,15 +16,17 @@ public class PhoneAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private final Long phoneNumber;
-    private final BigDecimal balance;
+    private Long phoneNumber;
+    private BigDecimal balance;
 
+/*
     public PhoneAccount(Long phoneNumber, BigDecimal balance) {
         this.phoneNumber = phoneNumber;
         this.balance = balance;
     }
 
-    public void setId(Long id) {
+
+   public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 }
