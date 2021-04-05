@@ -53,11 +53,30 @@ public class DBController {
 
 
     @PostMapping("/phone/topup")
-    public void phoneTopUp(@RequestParam("phoneID") Long phoneID, @RequestParam("cardID") String cardID, @RequestParam("amount") BigDecimal amount) {
-        System.out.println(phoneID + " " + cardID + " " + amount);
+    public boolean phoneTopUp(@RequestParam("phoneID") Long phoneID, @RequestParam("cardID") Long cardID, @RequestParam("amount") BigDecimal amount) {
+        boolean moneyCharged = creditCardRepository
+                .findById(cardID)
+                .map(c -> {
+                    if (c.getBalance().compareTo(amount) < 0) return false;
+                    c.setBalance(c.getBalance().subtract(amount));
+                    creditCardRepository.save(c);
+                    return true;
+                })
+                .orElse(false);
+
+        if (moneyCharged) {
+            phoneAccountRepository
+                    .findById(phoneID)
+                    .ifPresent(p -> {
+                        p.setBalance(p.getBalance().add(amount));
+                        phoneAccountRepository.save(p);
+                    });
+        }
+        return moneyCharged;
     }
 
 
+    // Тестовый метод. Не используется во взаимодействии с модулем "client"
     @GetMapping("/test_jdbc_api")
     @Transactional
     public void test() {
@@ -72,6 +91,7 @@ public class DBController {
             preparedSt.setInt(3, 4444);
             preparedSt.setBigDecimal(4, BigDecimal.valueOf(400));
             preparedSt.executeUpdate();
+            conn.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

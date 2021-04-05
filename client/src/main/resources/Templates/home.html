@@ -12,7 +12,17 @@
 <main>
     <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Проект ATM_Project</h1>
-        <p class="lead text-muted">Spring boot приложение, реализующее работу c базой данных</p>
+        <p class="lead text-muted">Многомодульный Spring Boot проект, сборка на фреймворке Maven.</p>
+        <p class="lead text-muted">Взаимодействие между модулями осуществляется по протоколу REST.</p>
+        <br>
+        <p class="lead text-muted">Список телефонов с возможностью редактирования, удаления, пополнения баланса:</p>
+        <a class="btn btn-warning" th:href="'/phones'">Телефоны</a>
+        <br>
+        <p class="lead text-muted">Добавление новых телефонов:</p>
+        <a class="btn btn-warning" th:href="'/phone/add'">Добавить телефон</a>
+        <br>
+        <p class="lead text-muted">Просмотр информации по картам:</p>
+        <a class="btn btn-warning" th:href="'/cards'">Карты</a>
     </div>
 </main>
 

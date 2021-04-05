@@ -9,8 +9,31 @@
 
 <header th:insert="blocks/header :: header"></header>
 
+
+<main>
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 th:text="${title}"/>
+        <p class="lead text-muted">Многомодульный Spring Boot проект, сборка на фреймворке Maven.</p>
+        <p class="lead text-muted">Взаимодействие между модулями осуществляется по протоколу REST.</p>
+        <br>
+
+        <h3>Модуль "client" реализует:</h3>
+        <p class="lead text-muted">1. Web интерфейс с использованием шаблонов Thymeleaf</p>
+        <p class="lead text-muted">2. Для получения и редактирования данных модуль "client" обращается по протоколу REST
+            к модулю "serverDB".</p>
+        <br>
+
+        <h3>Модуль "serverDB" реализует:</h3>
+        <p class="lead text-muted">1. Обмен информацией с модулем "client" по протоколу REST в формате JSON;</p>
+        <p class="lead text-muted">2. Взаимодействие с базой данных (добавление, редактирование, удаление).</p>
+        <br>
+    </div>
+
+</main>
+
+
 <div class="container mt-5">
-    <h1 th:text="${title}"/>
+
 </div>
 
 <footer th:insert="blocks/footer :: footer"></footer>

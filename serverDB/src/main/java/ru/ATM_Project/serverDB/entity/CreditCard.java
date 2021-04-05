@@ -14,11 +14,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class CreditCard {
-    int cardPIN;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cardNumber;
     private LocalDate expDate;
+    private int cardPIN;
     private BigDecimal balance;
 }
