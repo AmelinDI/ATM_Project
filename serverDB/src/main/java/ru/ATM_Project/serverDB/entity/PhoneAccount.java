@@ -18,15 +18,4 @@ public class PhoneAccount {
     private Long id;
     private Long phoneNumber;
     private BigDecimal balance;
-
-/*
-    public PhoneAccount(Long phoneNumber, BigDecimal balance) {
-        this.phoneNumber = phoneNumber;
-        this.balance = balance;
-    }
-
-
-   public void setId(Long id) {
-        this.id = id;
-    }*/
 }

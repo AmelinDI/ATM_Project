@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import ru.ATM_Project.serverDB.TopUpResult;
 import ru.ATM_Project.serverDB.entity.CreditCard;
 import ru.ATM_Project.serverDB.entity.PhoneAccount;
 
@@ -122,12 +123,12 @@ public class ATMController {
     public String topUpPhone(@PathVariable("id") Long phoneId, @RequestParam("cardID") Long cardID, @RequestParam("amount") BigDecimal amount) {
         RestTemplate restTemplate = new RestTemplate();
 
-        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<>();
         parametersMap.add("phoneID", phoneId.toString());
         parametersMap.add("cardID", cardID.toString());
         parametersMap.add("amount", amount.toString());
-        Boolean result = restTemplate.postForObject("http://127.0.0.1:8081/phone/topup", parametersMap, Boolean.class);
-        log.debug("Phone top up was done: " + result);
+        TopUpResult result = restTemplate.postForObject("http://127.0.0.1:8081/phone/topup", parametersMap, TopUpResult.class);
+        log.info("Phone top up result: " + result);
 
         return "redirect:/phones";
     }
