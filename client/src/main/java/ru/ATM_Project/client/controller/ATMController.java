@@ -26,11 +26,13 @@ public class ATMController {
         return "home";
     }
 
+
     @GetMapping("/about")
     public String about(Model model) {
         model.addAttribute("title", "О проекте ATM_project");
         return "about";
     }
+
 
     @GetMapping("/phones")
     public String phones(Model model) {
@@ -41,10 +43,12 @@ public class ATMController {
         return "phones";
     }
 
+
     @GetMapping("/phone/add")
     public String phoneAdd(Model model) {
         return "phone-add";
     }
+
 
     @PostMapping("/phone/add")
     public String phonePostAdd(@RequestParam Long phoneNumber, @RequestParam BigDecimal balance) {
@@ -57,6 +61,7 @@ public class ATMController {
 
         return "redirect:/phones";
     }
+
 
     @GetMapping("/phone/{id}")
     public String phoneDetails(@PathVariable("id") Long id, Model model) {
@@ -71,6 +76,7 @@ public class ATMController {
         return "phone-details";
     }
 
+
     @PostMapping("/phone/{id}/delete")
     public String phonePostDelete(@PathVariable("id") Long id) {
         RestTemplate restTemplate = new RestTemplate();
@@ -78,6 +84,7 @@ public class ATMController {
 
         return "redirect:/phones";
     }
+
 
     @GetMapping("/phone/{id}/edit")
     public String phoneEdit(@PathVariable("id") Long id, Model model) {
@@ -92,6 +99,7 @@ public class ATMController {
         return "phone-edit";
     }
 
+
     @PostMapping("/phone/{id}/edit")
     public String phonePostUpdate(@PathVariable("id") Long id, @RequestParam Long phoneNumber, @RequestParam BigDecimal balance) {
         PhoneAccount phoneAccount = new PhoneAccount();
@@ -104,6 +112,7 @@ public class ATMController {
 
         return "redirect:/phones";
     }
+
 
     @GetMapping("/phone/{id}/topup")
     public String topUpPhone(@PathVariable("id") Long id, Model model) {
@@ -119,6 +128,7 @@ public class ATMController {
         return "phone-topup";
     }
 
+
     @PostMapping("/phone/{id}/topup")
     public String topUpPhone(@PathVariable("id") Long phoneId, @RequestParam("cardID") Long cardID, @RequestParam("amount") BigDecimal amount) {
         RestTemplate restTemplate = new RestTemplate();
@@ -132,6 +142,7 @@ public class ATMController {
 
         return "redirect:/phones";
     }
+
 
     @GetMapping("/cards")
     public String cards(Model model) {
